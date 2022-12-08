@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "ESNext",
+        "outDir": "./src/main/resources/testing",
+        "moduleResolution": "Node",
+        "target": "ES2020",
+        "jsx": "react",
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "sourceMap": true,
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*"
+    ],
+    "include": ["./src/main/resources/typescript/*"]
+}

@@ -3,6 +3,10 @@ chat_logs = null;
 input_message = null;
 send_button = null;
 
+function onmessage(message){
+    chat_logs.innerText += message.body + "\n"
+}
+
 window.onload = function(){
     chatroom_name = window.location.pathname.split('/').pop();
     chat_logs = document.getElementById("chat_logs");
@@ -32,6 +36,4 @@ window.onload = function(){
 
 //TODO: WHEN THE USER EXITS CHATROOM PAGE DISCONNECT IT FROM SERVER 
 
-function onmessage(message){
-    chat_logs.innerText += message.body + "\n"
-}
+
