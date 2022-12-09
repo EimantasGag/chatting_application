@@ -1,5 +1,7 @@
 package com.eimantasgag.learning_springboot.chatrooms_db;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -8,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eimantasgag.learning_springboot.model.Chatroom;
 
 public interface ChatroomRepository extends JpaRepository<Chatroom, Integer> {
-    public Chatroom findByName(String name);
+    public Optional<Chatroom> findByName(String name);
     
     @Transactional
     @Modifying

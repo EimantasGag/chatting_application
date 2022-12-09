@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
 import com.eimantasgag.learning_springboot.chatrooms_db.ChatroomRepository;
-import com.eimantasgag.learning_springboot.model.Chatroom;
 
 @Controller
 public class MessageController {

@@ -1,5 +1,7 @@
 package com.eimantasgag.learning_springboot.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
@@ -18,8 +20,14 @@ public class SubscribeController {
     public String subscribe(@DestinationVariable String room_name){
         String outputMessage = "Connected to " + room_name + " chatroom";
 
-        Chatroom chatroom = chatroomRepository.findByName(room_name);
-        String[] messages_arr = chatroom.getMessages();
+        Optional<Chatroom> chatroom = chatroomRepository.findByName(room_name);
+
+        //if chatroom doesnt exist
+        if(!chatroom.isPresent()){
+            return "";
+        }
+
+        String[] messages_arr = chatroom.get().getMessages();
 
         for(int i = 0;i<messages_arr.length;i++){
             outputMessage += '\n';
