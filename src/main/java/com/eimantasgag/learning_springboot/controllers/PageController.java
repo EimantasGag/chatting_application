@@ -41,7 +41,14 @@ public class PageController {
     }
 
     @GetMapping("/")
-    public String home(){
+    public String home(@CookieValue(value = "username", defaultValue = "") String username, HttpServletResponse httpServletResponse){
+        if(username.equals("")){
+            try{
+                httpServletResponse.sendRedirect("/login");
+            }
+            catch(Exception e){}
+        }
+        
         return "home"; // templates/home.html
     }
 
