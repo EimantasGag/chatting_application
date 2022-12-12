@@ -14,13 +14,13 @@ public class User {
     private Integer id;
     
     private String username;
-    private String encryptedPassword;
+    private String hashpassword;
 
     public User(){}
     
-    public User(String username, String encryptedPassword) {
+    public User(String username, String hashPassword) {
         this.username = username;
-        this.encryptedPassword = encryptedPassword;
+        this.hashpassword = hashPassword;
     }
     public String getUsername() {
         return username;
@@ -28,10 +28,10 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-    public String getEncryptedPassword() {
-        return encryptedPassword;
+    public String getHashpassword() {
+        return hashpassword;
     }
-    public void setEncryptedPassword(String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
+    public void setHashpassword(String hashPassword) {
+        this.hashpassword = hashPassword;
     }
 }
