@@ -28,6 +28,10 @@ public class PostController {
         System.out.println("username: " + payload.getUsername());
         Optional<User> optionaluser = userRepository.findByUsername(payload.getUsername());
 
+        //TODO: BEFORE THAT FIGURE OUT HOW DATA IN COOKIES SHOULD BE STORED SO IT WONT BE MANIPULATED
+
+        //TODO: IF THE USER WANTS TO BE REMMEBER CREATE A COOKIE
+
         try{
             if(optionaluser.isPresent()){
                 User user = optionaluser.get();
