@@ -2,6 +2,9 @@ package com.eimantasgag.learning_springboot.controllers;
 
 import java.util.Optional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,13 +27,17 @@ public class PostController {
     static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @PostMapping(path = "/login")
-    public LoginResponse login(@RequestBody LoginData payload){
+    public LoginResponse login(@RequestBody LoginData payload, HttpServletResponse httpServletResponse){
         System.out.println("username: " + payload.getUsername());
         Optional<User> optionaluser = userRepository.findByUsername(payload.getUsername());
 
-        //TODO: BEFORE THAT FIGURE OUT HOW DATA IN COOKIES SHOULD BE STORED SO IT WONT BE MANIPULATED
+        if(payload.isRememberUser()){
+            httpServletResponse.addCookie(new Cookie("username", payload.getUsername()));
+        }
+        
+        //TODO: FIGURE OUT HOW DATA IN COOKIES SHOULD BE STORED SO IT WONT BE MANIPULATED
 
-        //TODO: IF THE USER WANTS TO BE REMMEBER CREATE A COOKIE
+        //TODO: AFTER LOGIN REDIRECT CLIENT TO THE PAGE HE WANTED INITIALLY
 
         try{
             if(optionaluser.isPresent()){
@@ -54,19 +61,41 @@ public class PostController {
 
     @PostMapping("/register")
     public RegisterResponse register(@RequestBody RegisterData payload){
-        System.out.println("username: " + payload.getUsername());
+
+        System.out.println(payload.getPassword());
+        System.out.println(payload.getRepeatPassword());
         
-        String hash = encoder.encode(payload.getPassword()); 
-        System.out.println("hashpassword: " + hash);
 
         try{
+            if(!payload.getPassword().equals(payload.getRepeatPassword())){
+                return new RegisterResponse(400, "Passwords do not match");
+            }
+            if(userRepository.findByUsername(payload.getUsername()).isPresent()){
+                return new RegisterResponse(400, "Username is taken");
+            }
+            if(payload.getPassword().length() < 8){
+                return new RegisterResponse(400, "Password has to be longer than 8 charakters");
+            }
+            if(payload.getPassword().equals(payload.getUsername())){
+                return new RegisterResponse(400, "Password cant be the same as username");
+            }
+
+            
+            System.out.println("username: " + payload.getUsername());
+        
+            String hash = encoder.encode(payload.getPassword()); 
+            System.out.println("hashpassword: " + hash);
+            
             userRepository.save(new User(payload.getUsername(), hash));
+            return new RegisterResponse(500, "Registration successful");
+        
         }
         catch(Exception e){
             return new RegisterResponse(400, "An Error occured. Please try again later");
         }
+
         
     
-        return new RegisterResponse(500, "Registration successful");
+        
     }
 }

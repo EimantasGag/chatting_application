@@ -6,6 +6,7 @@ var input_username = null;
 var input_password = null;
 var error_message = null;
 var login_button = null;
+var checkbox = null;
 
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() { 
@@ -21,7 +22,7 @@ xhr.onreadystatechange = function() {
 function login(username, password){
     xhr.open("POST", "/login");
     xhr.setRequestHeader("Content-Type", "application/json");
-    var data = JSON.stringify({"username": username, "password": password});
+    var data = JSON.stringify({"username": username, "password": password, "rememberUser": checkbox.checked});
     xhr.send(data); 
 }
 
@@ -30,6 +31,7 @@ window.onload = function(){
     input_password = document.getElementById("input_password");
     login_button = document.getElementById("login_button");
     error_message = document.getElementById("error_message");
+    checkbox = document.getElementById("checkbox_remember");
 
     input_username.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {

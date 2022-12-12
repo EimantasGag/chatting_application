@@ -27,14 +27,9 @@ xhr.onreadystatechange = function() {
 };
 
 function register(username, password, repeatPassword){
-    if(password != repeatPassword){
-        displayErrorMessage("Passwords dont match");
-        return;
-    }
-
     xhr.open("POST", "/register");
     xhr.setRequestHeader("Content-Type", "application/json");
-    var data = JSON.stringify({"username": username, "password": password});
+    var data = JSON.stringify({"username": username, "password": password, "repeatPassword": repeatPassword});
     xhr.send(data); 
 }
 
