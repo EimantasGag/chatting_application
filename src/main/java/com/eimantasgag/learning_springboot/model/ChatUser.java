@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class ChatUser{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -16,9 +16,9 @@ public class User {
     private String username;
     private String hashpassword;
 
-    public User(){}
+    public ChatUser(){}
     
-    public User(String username, String hashPassword) {
+    public ChatUser(String username, String hashPassword) {
         this.username = username;
         this.hashpassword = hashPassword;
     }
