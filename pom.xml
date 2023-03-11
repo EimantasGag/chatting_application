@@ -21,6 +21,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		
 		<!-- AUTOMATICALLY RETURNS HTML FILES TO GET REQUESTS -->
 		<dependency>
@@ -72,7 +77,6 @@
 			<artifactId>spring-security-crypto</artifactId>
 			<version>6.0.0</version>
 		</dependency>
-
 		
 	</dependencies>
 

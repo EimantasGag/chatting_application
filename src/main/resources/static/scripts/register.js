@@ -10,8 +10,6 @@ var register_button = null;
 
 var xhr = new XMLHttpRequest();
 
-//TODO: NOT ALLOW THE USER TO CEATE TO SIMPLE PASSWORDS + CNAT BE SAME AS USERNAME
-
 function displayErrorMessage(message){
     error_message.innerHTML = message;
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.eimantasgag.learning_springboot.chatrooms_db.ChatroomRepository;
+import com.eimantasgag.learning_springboot.databases.ChatroomRepository;
 
 @Controller
 public class PageController {
@@ -20,14 +20,6 @@ public class PageController {
     public String chatroom(@CookieValue(value = "username", defaultValue = "") 
     String username, @PathVariable String room_name,
     HttpServletResponse httpServletResponse){
-        
-        //user havent logged in or doesnt have an account
-        if(username.equals("")){
-            try{
-                httpServletResponse.sendRedirect("/login");
-            }
-            catch(Exception e){}
-        }
 
         if(!chatroomRepository.findByName(room_name).isPresent()){
             System.out.println("room " + room_name + " not found");
@@ -42,14 +34,7 @@ public class PageController {
 
     @GetMapping("/")
     public String home(@CookieValue(value = "username", defaultValue = "") String username, HttpServletResponse httpServletResponse){
-        if(username.equals("")){
-            try{
-                httpServletResponse.sendRedirect("/login");
-            }
-            catch(Exception e){}
-        }
-        
-        return "home"; // templates/home.html
+        return "home"; 
     }
 
     @GetMapping("/login")

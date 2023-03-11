@@ -19,7 +19,7 @@ public class Chatroom{
     private String name;
 
     @Column(columnDefinition = "VARCHAR(200)[]")
-    @Type(type = "com.eimantasgag.learning_springboot.chatrooms_db.SqlStringArrayType")
+    @Type(type = "com.eimantasgag.learning_springboot.databases.SqlStringArrayType")
     private String[] messages;
 
     public Chatroom(){}

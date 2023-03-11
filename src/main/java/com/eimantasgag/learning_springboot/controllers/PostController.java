@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eimantasgag.learning_springboot.chatrooms_db.UserRepository;
+import com.eimantasgag.learning_springboot.databases.UserRepository;
 import com.eimantasgag.learning_springboot.model.LoginData;
 import com.eimantasgag.learning_springboot.model.LoginResponse;
 import com.eimantasgag.learning_springboot.model.RegisterData;
@@ -36,7 +36,6 @@ public class PostController {
         }
         
         //TODO: FIGURE OUT HOW DATA IN COOKIES SHOULD BE STORED SO IT WONT BE MANIPULATED
-
         //TODO: AFTER LOGIN REDIRECT CLIENT TO THE PAGE HE WANTED INITIALLY
 
         try{
@@ -51,7 +50,7 @@ public class PostController {
                 }
             }
             else{
-                return new LoginResponse(400, "User with name" + payload.getUsername() + " does not exist");
+                return new LoginResponse(400, "User with name " + payload.getUsername() + " does not exist");
             }
         }
         catch(Exception e){
@@ -61,11 +60,7 @@ public class PostController {
 
     @PostMapping("/register")
     public RegisterResponse register(@RequestBody RegisterData payload){
-
-        System.out.println(payload.getPassword());
-        System.out.println(payload.getRepeatPassword());
         
-
         try{
             if(!payload.getPassword().equals(payload.getRepeatPassword())){
                 return new RegisterResponse(400, "Passwords do not match");
@@ -80,7 +75,6 @@ public class PostController {
                 return new RegisterResponse(400, "Password cant be the same as username");
             }
 
-            
             System.out.println("username: " + payload.getUsername());
         
             String hash = encoder.encode(payload.getPassword()); 
@@ -93,9 +87,5 @@ public class PostController {
         catch(Exception e){
             return new RegisterResponse(400, "An Error occured. Please try again later");
         }
-
-        
-    
-        
     }
 }

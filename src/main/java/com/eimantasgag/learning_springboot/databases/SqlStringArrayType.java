@@ -1,4 +1,4 @@
-package com.eimantasgag.learning_springboot.chatrooms_db;
+package com.eimantasgag.learning_springboot.databases;
 
 import java.io.Serializable;
 import java.sql.Array;
