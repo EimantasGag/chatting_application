@@ -1,5 +1,7 @@
 package com.eimantasgag.learning_springboot;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,13 +10,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+	private DataSource dataSource;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -28,13 +35,16 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        //login page doesnt required to be logged in
-        http.authorizeRequests().antMatchers("/login*").permitAll();
-        http.authorizeRequests().antMatchers("/register*").permitAll();
-        http.authorizeRequests().antMatchers("/scripts/register*").permitAll();
+        //pages that doesnt required to be logged in
+        http.authorizeRequests().antMatchers("/login*", "/register*", "/scripts/register*").permitAll();
 
         //all other pages required to be logged
         http.authorizeRequests().antMatchers("/**").hasRole("USER");
+
+        http.authorizeRequests().and() 
+            .rememberMe().tokenRepository(this.persistentTokenRepository()) 
+            .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
+
             
         http.formLogin()
             .loginPage("/login")
@@ -48,23 +58,11 @@ public class SecurityConfig {
         return http.build();
     }
 
-    
-
-    // @Bean
-    // public InMemoryUserDetailsManager userDetailsService() {
-    //     UserDetails user1 = User.withUsername("user1")
-    //         .password(passwordEncoder().encode("user1Pass"))
-    //         .roles("USER")
-    //         .build();
-    //     UserDetails user2 = User.withUsername("user2")
-    //         .password(passwordEncoder().encode("user2Pass"))
-    //         .roles("USER")
-    //         .build();
-    //     UserDetails admin = User.withUsername("admin")
-    //         .password(passwordEncoder().encode("adminPass"))
-    //         .roles("ADMIN")
-    //         .build();
-    //     return new InMemoryUserDetailsManager(user1, user2, admin);
-    // }
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+        db.setDataSource(this.dataSource);
+        return db;
+    }
     
 }

@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -17,9 +16,7 @@ public class PageController {
     private ChatroomRepository chatroomRepository;
 
     @GetMapping("/chatrooms/{room_name}")
-    public String chatroom(@CookieValue(value = "username", defaultValue = "") 
-    String username, @PathVariable String room_name,
-    HttpServletResponse httpServletResponse){
+    public String chatroom(@PathVariable String room_name, HttpServletResponse httpServletResponse){
 
         if(!chatroomRepository.findByName(room_name).isPresent()){
             System.out.println("room " + room_name + " not found");
@@ -33,7 +30,7 @@ public class PageController {
     }
 
     @GetMapping("/")
-    public String home(@CookieValue(value = "username", defaultValue = "") String username, HttpServletResponse httpServletResponse){
+    public String home(HttpServletResponse httpServletResponse){
         return "home"; 
     }
 
