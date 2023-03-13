@@ -7,18 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.eimantasgag.learning_springboot.databases.ChatroomRepository;
+import com.eimantasgag.learning_springboot.services.ChatroomsService;
 
 @Controller
 public class PageController {
 
     @Autowired
-    private ChatroomRepository chatroomRepository;
+    private ChatroomsService chatroomsService;
 
     @GetMapping("/chatrooms/{room_name}")
     public String chatroom(@PathVariable String room_name, HttpServletResponse httpServletResponse){
 
-        if(!chatroomRepository.findByName(room_name).isPresent()){
+        if(!chatroomsService.findChatroom(room_name).isPresent()){
             System.out.println("room " + room_name + " not found");
             return "chatroom_notfound";
         }

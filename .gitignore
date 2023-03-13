@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 TODO's.txt
 
+
 ### STS ###
 .apt_generated
 .classpath

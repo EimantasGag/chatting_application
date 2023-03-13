@@ -1,20 +1,20 @@
 package com.eimantasgag.learning_springboot.model;
 
 public class RegisterResponse {
-    private int statusCode;
+    private boolean success;
     private String message;
 
     RegisterResponse(){}
 
-    public RegisterResponse(int statusCode, String message) {
-        this.statusCode = statusCode;
+    public RegisterResponse(boolean success, String message) {
+        this.success = success;
         this.message = message;
     }
-    public int getStatusCode() {
-        return statusCode;
+    public boolean isSuccess() {
+        return success;
     }
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+    public void setStatusCode(boolean success) {
+        this.success = success;
     }
     public String getMessage() {
         return message;
