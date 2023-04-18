@@ -1,24 +1,26 @@
 package com.eimantasgag.learning_springboot.controllers;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.eimantasgag.learning_springboot.chatrooms_db.ChatroomRepository;
+import com.eimantasgag.learning_springboot.services.ChatroomsService;
 
 @Controller
 public class PageController {
 
     @Autowired
-    private ChatroomRepository chatroomRepository;
+    private ChatroomsService chatroomsService;
 
     @GetMapping("/chatrooms/{room_name}")
-    public String chatroom(@PathVariable String room_name){
-        
-        if(chatroomRepository.findByName(room_name) == null){
+    public String chatroom(@PathVariable String room_name, HttpServletResponse httpServletResponse){
+
+        if(!chatroomsService.findChatroom(room_name).isPresent()){
             System.out.println("room " + room_name + " not found");
-            return "chatroom_notfound.html";
+            return "chatroom_notfound";
         }
         else{
             System.out.println("room " + room_name + " exists");
@@ -28,7 +30,18 @@ public class PageController {
     }
 
     @GetMapping("/")
-    public String index(){
-        return "index"; // templates/index.html
+    public String home(HttpServletResponse httpServletResponse){
+        return "home"; 
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        System.out.println("got get request to login page");
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register(){
+        return "register";
     }
 }

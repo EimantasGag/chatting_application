@@ -1,0 +1,23 @@
+<html> 
+    <head>
+        <script th:src="@{/scripts/register.js}" type="text/javascript"></script>
+    </head>
+    <body>
+        <h1>CHATTING APPLICATION</h1>
+        <h3>Register</h3>
+
+        <label for="input_username">Username</label>
+        <input type="text" id="input_username" autocomplete="off" maxlength="20"><br><br>
+        <label for="input_password">Password</label>
+        <input type="password" id="input_password"><br><br>
+        <label for="input_password">Repeat password</label>
+        <input type="password" id="input_repeatpassword"><br><br>
+        
+        <p id="error_message" style="color: red;">  </p>
+        <button id="register_button">Register</button>
+        <br>
+        <br>
+        
+        <a href="/login">Already have an account? Login</a>
+    </body>
+</html>

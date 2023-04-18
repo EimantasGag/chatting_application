@@ -6,7 +6,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Controller;
 
-import com.eimantasgag.learning_springboot.chatrooms_db.ChatroomRepository;
+import com.eimantasgag.learning_springboot.databases.ChatroomRepository;
 
 @Controller
 public class MessageController {

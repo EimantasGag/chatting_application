@@ -4,8 +4,6 @@ const server_ip = "192.168.0.157";
 room_name = '';
 //const ws_url = "ws://" + server_ip + ":8080/chatserver"
 
-//TODO: WRAP THIS INTO OBJECT
-
 function send_message(message){
     if(stompClient != null && message != ''){
         stompClient.send("/chatroom/" + room_name, {}, message);

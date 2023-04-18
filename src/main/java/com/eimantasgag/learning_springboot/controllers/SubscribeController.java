@@ -7,7 +7,7 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
-import com.eimantasgag.learning_springboot.chatrooms_db.ChatroomRepository;
+import com.eimantasgag.learning_springboot.databases.ChatroomRepository;
 import com.eimantasgag.learning_springboot.model.Chatroom;
 
 @Controller
@@ -27,6 +27,7 @@ public class SubscribeController {
             return "";
         }
 
+        //if exists print out the messages
         String[] messages_arr = chatroom.get().getMessages();
 
         for(int i = 0;i<messages_arr.length;i++){
